@@ -7,59 +7,18 @@ import api from '~/services/api';
 
 export function* signIn({payload}) {
   try {
-    const {email, password} = payload;
+    const {id} = payload;
 
-    const response = yield call(api.post, 'sessions', {
-      email,
-      password,
-    });
+    yield call(api.get, `students/${id}/checkins`);
 
-    const {token, user} = response.data;
+    api.defaults.headers.studentId = `${id}`;
 
-    api.defaults.headers.Authorization = `Bearer ${token}`;
+    yield put(signInSuccess(id));
 
-    if (user.provider) {
-      Alert.alert(
-        'Erro no login',
-        'Usuário não pode ser prestador de serviços',
-      );
-      return;
-    }
-
-    yield put(signInSuccess(token, user));
-
-    // history.push('/dashboard');
+    // history.push('/CheckIns');
   } catch (err) {
-    Alert.alert('Falha na autenticação', 'Verifique seus dados');
+    Alert.alert('Esse id de aluno não existe');
     yield put(signFailure());
-  }
-}
-
-export function* signUp({payload}) {
-  try {
-    const {name, email, password} = payload;
-
-    yield call(api.post, 'users', {
-      name,
-      email,
-      password,
-    });
-
-    // history.push('/');
-  } catch (err) {
-    Alert.alert('Falha no cadastro', 'Verifique seus dados');
-
-    yield put(signFailure());
-  }
-}
-
-export function setToken({payload}) {
-  if (!payload) return;
-
-  const {token} = payload.auth;
-
-  if (token) {
-    api.defaults.headers.Authorization = `Bearer ${token}`;
   }
 }
 
@@ -67,9 +26,4 @@ export function signOut() {
   // history.push('/');
 }
 
-export default all([
-  takeLatest('persist/REHYDRATE', setToken),
-  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
-  takeLatest('@auth/SIGN_UP_REQUEST', signUp),
-  takeLatest('@auth/SIGN_OUT', signOut),
-]);
+export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);

@@ -5,8 +5,8 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SignIn from './pages/SignIn';
-import CheckIns from './pages/CheckIns';
 
+import CheckIns from './pages/CheckIns';
 import HelpOrderList from './pages/New/HelpOrderList';
 import HelpOrder from './pages/New/HelpOrder';
 import NewHelpOrder from './pages/New/NewHelpOrder';
@@ -31,7 +31,7 @@ export default (signedIn = false) =>
                 {
                   defaultNavigationOptions: {
                     headerTransparent: true,
-                    headerTintColor: '#fff',
+                    headerTintColor: '#000',
                     headerLayoutPreset: 'center',
                     headerLeftContainerStyle: {
                       marginLeft: 20,
@@ -44,11 +44,7 @@ export default (signedIn = false) =>
                 tabBarVisible: false,
                 tabBarLabel: 'Agendar',
                 tabBarIcon: (
-                  <Icon
-                    name="add-circle-outline"
-                    size={20}
-                    color="rgba(255, 255, 255, 0.6)"
-                  />
+                  <Icon name="add-circle-outline" size={20} color="#000" />
                 ),
               },
             },
@@ -57,10 +53,10 @@ export default (signedIn = false) =>
             resetOnBlur: true,
             tabBarOptions: {
               keyboardHidesTabBar: true,
-              activeTintColor: '#fff',
-              inactiveTintColor: 'rgba(255,255,255,0.6)',
+              activeTintColor: '#000',
+              inactiveTintColor: '#000',
               style: {
-                backgroundColor: '#8d41a8',
+                backgroundColor: '#fff',
               },
             },
           },
