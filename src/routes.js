@@ -11,6 +11,8 @@ import HelpOrderList from './pages/New/HelpOrderList';
 import HelpOrder from './pages/New/HelpOrder';
 import NewHelpOrder from './pages/New/NewHelpOrder';
 
+import Logo from '~/components/Logo';
+
 export default (signedIn = false) =>
   createAppContainer(
     createSwitchNavigator(
@@ -20,7 +22,15 @@ export default (signedIn = false) =>
         }),
         App: createBottomTabNavigator(
           {
-            CheckIns,
+            CheckIns: {
+              screen: CheckIns,
+              navigationOptions: {
+                tabBarLabel: 'Check-ins',
+                tabBarIcon: ({tintColor}) => (
+                  <Icon name="room" size={20} color={tintColor} />
+                ),
+              },
+            },
             New: {
               screen: createStackNavigator(
                 {
@@ -30,21 +40,25 @@ export default (signedIn = false) =>
                 },
                 {
                   defaultNavigationOptions: {
-                    headerTransparent: true,
-                    headerTintColor: '#000',
-                    headerLayoutPreset: 'center',
+                    headerRight: () => <Logo />,
+                    headerTransparent: false,
+                    headerTintColor: '#fff',
+                    headerStyle: {
+                      borderBottomColor: '#DDDDDD',
+                    },
                     headerLeftContainerStyle: {
                       marginLeft: 20,
-                      textAlign: 'center',
+                    },
+                    headerRightContainerStyle: {
+                      marginRight: 150,
                     },
                   },
                 },
               ),
               navigationOptions: {
-                tabBarVisible: false,
-                tabBarLabel: 'Agendar',
-                tabBarIcon: (
-                  <Icon name="add-circle-outline" size={20} color="#000" />
+                tabBarLabel: 'Pedir ajuda',
+                tabBarIcon: ({tintColor}) => (
+                  <Icon name="help" size={20} color={tintColor} />
                 ),
               },
             },
@@ -53,8 +67,8 @@ export default (signedIn = false) =>
             resetOnBlur: true,
             tabBarOptions: {
               keyboardHidesTabBar: true,
-              activeTintColor: '#000',
-              inactiveTintColor: '#000',
+              activeTintColor: '#ee4e62',
+              inactiveTintColor: '#999',
               style: {
                 backgroundColor: '#fff',
               },

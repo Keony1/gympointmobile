@@ -3,15 +3,16 @@ import Button from '~/components/Button';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 20px;
+  padding: 0 20px;
 `;
 
 export const NewCheckInButton = styled(Button)`
-  margin-bottom: 20px;
+  margin: 20px 0;
 `;
 
 export const CheckInList = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
+  contentContainerStyle: {paddingBottom: 20},
 })``;
 
 export const Item = styled.View`
