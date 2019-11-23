@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {RectButton} from 'react-native-gesture-handler';
 import Button from '~/components/Button';
 
 export const Container = styled.SafeAreaView`
@@ -16,7 +17,7 @@ export const HelpOrderFlatList = styled.FlatList.attrs({
   contentContainerStyle: {paddingBottom: 20},
 })``;
 
-export const HelpOrder = styled.View`
+export const HelpOrder = styled(RectButton)`
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;

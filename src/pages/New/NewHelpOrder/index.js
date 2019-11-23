@@ -29,6 +29,8 @@ export default function NewHelpOrder({navigation}) {
     <Container>
       <QuestionInput
         underlineColorAndroid="transparent"
+        autoCorrect={false}
+        autoCapitalize="none"
         placeholderTextColor="grey"
         placeholder="Inclua seu pedido de auxílio"
         numberOfLines={9}

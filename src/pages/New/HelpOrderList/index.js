@@ -28,12 +28,14 @@ function HelpOrderList({navigation, isFocused}) {
       const response = await api.get(`/students/${studentId}/help-orders`);
 
       setHelpOrders(
-        response.data.map(helpOrder => ({
-          ...helpOrder,
+        response.data
+          .map(helpOrder => ({
+            ...helpOrder,
           questionFormated: `${helpOrder.question.slice(0, 90) + (helpOrder.question.length > 90 ? '...' : '')}`, //eslint-disable-line
-          createdAtFormated: dateParserRelative(helpOrder.createdAt),
-          isAnswered: helpOrder.answer ? 'Respondido' : 'Sem resposta',
-        })),
+            createdAtFormated: dateParserRelative(helpOrder.createdAt),
+            isAnswered: helpOrder.answer ? 'Respondido' : 'Sem resposta',
+          }))
+          .reverse(),
       );
     }
     if (isFocused) {
@@ -43,6 +45,10 @@ function HelpOrderList({navigation, isFocused}) {
 
   async function handleOnPress() {
     navigation.navigate('NewHelpOrder', {});
+  }
+
+  function handlerNavigation(helpOrder) {
+    navigation.navigate('HelpOrder', {helpOrder});
   }
 
   return (
@@ -55,13 +61,13 @@ function HelpOrderList({navigation, isFocused}) {
         data={helpOrders}
         keyExtractor={item => String(item.id)}
         renderItem={({item}) => (
-          <HelpOrder>
+          <HelpOrder onPress={() => handlerNavigation(item)}>
             <Infos>
               <QuestionHeader>
                 <Icon
                   name="check-circle"
                   size={20}
-                  color={item.answer ? '42CB59' : '#999999'}
+                  color={item.answer ? '#42CB59' : '#999999'}
                 />
 
                 <StatusText answer={item.answer}>{item.isAnswered}</StatusText>
